@@ -19,6 +19,8 @@ def initialize_webcam_models(read_camera):
     """
     model = "models/shape_predictor_68_face_landmarks.dat"
     predictor = dlib.shape_predictor(model)
+    
+
 
     return cv2.VideoCapture(read_camera), dlib.get_frontal_face_detector(), predictor
 
@@ -26,25 +28,23 @@ def initialize_webcam_models(read_camera):
 def webcam_processing(run_event_flag, camera_id=0, virtual_cam_id=0):
     """
     Continuous loop for handling webcam frames and applying filters.
-
-    Args:
-        run_event_flag (threading.Event): Event to control the loop.
-        camera_id (int, optional): Camera ID to read from. Defaults to 0.
-        virtual_cam_id (int, optional): ID for virtual camera output (Linux only). Defaults to 0.
-
-    Returns:
-        None
     """
     cap, detector, predictor = initialize_webcam_models(camera_id)
 
     while run_event_flag.is_set():
         ret, frame = cap.read()
 
-        if not ret:
+        if not ret or frame is None:
             print("Error reading camera, exiting")
             break
 
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        # Verificar tipo de imagen antes de pasar al detector
+        if gray_frame.dtype != 'uint8':
+            print("Error: La imagen no es de tipo 8-bit")
+            continue
+
         detected_faces = detector(gray_frame, 0)
 
         for detected_face in detected_faces:
@@ -66,6 +66,7 @@ def webcam_processing(run_event_flag, camera_id=0, virtual_cam_id=0):
             display_updated_image(frame, updated_panel)
 
     cap.release()
+
 
 
 if __name__ == "__main__":

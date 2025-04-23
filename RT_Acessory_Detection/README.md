@@ -23,16 +23,4 @@
 
 - **Pose Detection Issues:** OpenCV struggled with tilted faces, so **Dlib’s Haar Cascade** was used for better robustness.  
 - **Performance Bottlenecks:** Used **image downscaling and upscaling** to improve processing speed.  
-- **Beard Filter Alignment Issues:** Scaling adjustments attempted, but further improvements needed.  
-
-## 📜 License  
-
-This project is licensed under the **MIT License**.  
-
-## 🛠️ Contributing  
-
-Contributions are welcome! Feel free to **fork the repo**, create a **new branch**, and submit a **pull request**.  
-
-## 📩 Contact  
-
-For any queries, feel free to reach out to **[Abhinav Menon](mailto:abhinavmenon54@gmail.com)**.  
+- **Beard Filter Alignment Issues:** Scaling adjustments attempted, but further improvements needed.   
